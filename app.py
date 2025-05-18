@@ -11,11 +11,9 @@ from tensorflow.keras.models import load_model
 
 
 # --- Configuration ---
-BASE_DIR      = os.path.dirname(os.path.abspath(__file__))
-UPLOAD_FOLDER = os.path.join(BASE_DIR, 'uploads')
-MODEL_DIR     = os.path.join(BASE_DIR, 'models')
-TEST_DIR      = os.path.join(BASE_DIR, 'chest_xray', 'test')
-
+BASE_DIR      = os.environ.get('BASE_DIR', os.path.dirname(os.path.abspath(__file__)))
+MODEL_DIR     = os.environ.get('MODEL_DIR', os.path.join(BASE_DIR, 'models'))
+UPLOAD_FOLDER = os.environ.get('UPLOAD_FOLDER', os.path.join(BASE_DIR, 'uploads'))
 
 # create uploads folder if needed
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
