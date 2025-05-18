@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card shadow">
+  <div class="card-header bg-primary text-white">
+    <h2 class="mb-0">Analysis Results</h2>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <!-- Image Display Column -->
+      <div class="col-md-6">
+        <div class="image-container mb-3">
+          <img src="{{ url_for('uploaded_file', filename=filename) }}" alt="Uploaded X-ray" class="img-fluid rounded">
+        </div>
+        <div class="text-center">
+          <span class="badge bg-info text-dark">Uploaded X-ray</span>
+        </div>
+      </div>
+  <!-- Results Column -->
+  <div class="col-md-6">
+    <div class="result-container">
+      <div class="d-flex align-items-center mb-4">
+        <div class="result-icon {% if label == 'PNEUMONIA' %}result-pneumonia{% else %}result-normal{% endif %} me-3">
+          <i class="bi {% if label == 'PNEUMONIA' %}bi-exclamation-triangle-fill{% else %}bi-check-circle-fill{% endif %}"></i>
+        </div>
+        <div>
+          <h3 class="mb-0 {% if label == 'PNEUMONIA' %}text-danger{% else %}text-success{% endif %}">{{ label }}</h3>
+          {% if label == 'NORMAL' %}
+          <p class="text-muted mb-0">No signs of pneumonia detected</p>
+          {% endif %}
+        </div>
+      </div>
+      
+      {% if label == 'PNEUMONIA' %}
+      <div class="severity-section mb-4">
+        <h4>Severity Assessment</h4>
+        <div class="d-flex justify-content-between mb-1">
+          <span><strong>Diagnosis:</strong> <span class="{% if 'Severe' in severity_text %}text-danger{% elif 'Moderate' in severity_text %}text-warning{% elif 'Mild' in severity_text %}text-success{% else %}text-info{% endif %}">{{ severity_text }}</span></span>
+          <span>{{ severity_percent }}%</span>
+        </div>
+        <div class="progress mb-3" style="height: 20px;">
+          <div class="progress-bar progress-bar-striped progress-bar-animated 
+            {% if 'Severe' in severity_text %}bg-danger{% elif 'Moderate' in severity_text %}bg-warning{% elif 'Mild' in severity_text %}bg-success{% else %}bg-info{% endif %}" 
+            role="progressbar" style="width: {{ severity_percent }}%;" 
+            aria-valuenow="{{ severity_percent }}" aria-valuemin="0" aria-valuemax="100">
+            {{ severity_percent }}%
+          </div>
+        </div>
+        
+        <div class="alert alert-info mt-4">
+          <h5 class="alert-heading">What does this mean?</h5>
+          <p>This analysis indicates signs of pneumonia in the chest X-ray. The severity is classified as <strong>{{ severity_text }}</strong>.</p>
+          <hr>
+          <p class="mb-0">Please consult with a healthcare professional for proper diagnosis and treatment. This tool is meant to assist medical professionals and not to replace clinical judgment.</p>
+        </div>
+      </div>
+      {% else %}
+      <div class="alert alert-success mt-4">
+        <h5 class="alert-heading">Healthy Lungs Detected</h5>
+        <p>No signs of pneumonia were found in this X-ray image.</p>
+        <hr>
+        <p class="mb-0">However, if you are experiencing symptoms, please consult with a healthcare professional. This tool is meant to assist medical professionals and not to replace clinical judgment.</p>
+      </div>
+      {% endif %}
+      
+      <div class="actions mt-4">
+        <a href="/" class="btn btn-primary">Analyze Another Image</a>
+        <a href="/dashboard" class="btn btn-outline-secondary ms-2">View Model Dashboard</a>
+        <div class="mt-3">
+          <a href="/feedback" class="btn btn-outline-info w-100">
+            <i class="bi bi-chat-dots me-2"></i>Provide Feedback on This Prediction
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  </div>
+</div>
+{% endblock %}

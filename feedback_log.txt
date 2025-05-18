@@ -1,0 +1,14 @@
+Prediction ID: 
+Correct: Yes
+Diagnosis: Normal
+Severity Accuracy: Very accurate
+Comments: ok
+Medical Professional: False
+----------------------------------------
+Prediction ID: 
+Correct: Yes
+Diagnosis: Mild Pneumonia
+Severity Accuracy: Somewhat accurate
+Comments: 
+Medical Professional: False
+----------------------------------------

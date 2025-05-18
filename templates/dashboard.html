@@ -1,0 +1,180 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="dashboard-container">
+  <div class="card shadow mb-4">
+    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+      <h2 class="h4 mb-0">Model Performance Dashboard</h2>
+      <span class="badge bg-light text-primary">v1.0.2</span>
+    </div>
+    <div class="card-body">
+      <div class="row mb-4">
+        <div class="col-md-3">
+          <div class="stat-card text-center p-3 border rounded shadow-sm">
+            <h3 class="text-primary">{{ metrics.accuracy }}</h3>
+            <p class="text-muted mb-0">Accuracy</p>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="stat-card text-center p-3 border rounded shadow-sm">
+            <h3 class="text-primary">{{ metrics.auc }}</h3>
+            <p class="text-muted mb-0">AUC Score</p>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="stat-card text-center p-3 border rounded shadow-sm">
+            <h3 class="text-primary">{{ metrics.precision }}</h3>
+            <p class="text-muted mb-0">Precision</p>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="stat-card text-center p-3 border rounded shadow-sm">
+            <h3 class="text-primary">{{ metrics.recall }}</h3>
+            <p class="text-muted mb-0">Recall</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card shadow mb-4">
+        <div class="card-header bg-info text-white">
+          <h3 class="h5 mb-0">ROC Curve</h3>
+        </div>
+        <div class="card-body text-center">
+          <img src="{{ url_for('static', filename='images/roc_curve.png') }}"
+               alt="ROC Curve" class="img-fluid rounded">
+          <p class="text-muted mt-2"><small>Area Under Curve (AUC): {{ metrics.auc }}</small></p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-6">
+      <div class="card shadow mb-4">
+        <div class="card-header bg-info text-white">
+          <h3 class="h5 mb-0">Confusion Matrix</h3>
+        </div>
+        <div class="card-body text-center">
+          <img src="{{ url_for('static', filename='images/confusion_matrix.png') }}"
+               alt="Confusion Matrix" class="img-fluid rounded">
+          <div class="row mt-2">
+            <div class="col-6">
+              <p class="text-success mb-0"><small>True Negative: {{ metrics.true_negative }}</small></p>
+            </div>
+            <div class="col-6">
+              <p class="text-danger mb-0"><small>False Positive: {{ metrics.false_positive }}</small></p>
+            </div>
+            <div class="col-6">
+              <p class="text-danger mb-0"><small>False Negative: {{ metrics.false_negative }}</small></p>
+            </div>
+            <div class="col-6">
+              <p class="text-success mb-0"><small>True Positive: {{ metrics.true_positive }}</small></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="card shadow mb-4">
+    <div class="card-header bg-primary text-white">
+      <h3 class="h5 mb-0">Grad-CAM Visualization</h3>
+    </div>
+    <div class="card-body">
+      <p>Grad-CAM (Gradient-weighted Class Activation Mapping) highlights the regions that influenced the model's decision, providing insight into what the model is "looking at" when making predictions.</p>
+      
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card border mb-3">
+            <div class="card-header bg-light">
+              <h4 class="h6 mb-0">Normal Case</h4>
+            </div>
+            <div class="card-body text-center">
+              <img src="{{ url_for('static', filename='images/gradcam_normal.png') }}"
+                   alt="Grad-CAM Normal" class="img-fluid rounded mb-2">
+              <p class="text-muted"><small>Model focuses on overall lung fields without highlighting specific abnormalities</small></p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6">
+          <div class="card border mb-3">
+            <div class="card-header bg-light">
+              <h4 class="h6 mb-0">Pneumonia Case</h4>
+            </div>
+            <div class="card-body text-center">
+              <img src="{{ url_for('static', filename='images/gradcam_pneumonia.png') }}"
+                   alt="Grad-CAM Pneumonia" class="img-fluid rounded mb-2">
+              <p class="text-muted"><small>Model highlights areas of opacification indicative of pneumonia</small></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="card shadow">
+    <div class="card-header bg-primary text-white">
+      <h3 class="h5 mb-0">Model Architecture</h3>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-7">
+          <h5>Two-Stage Classification Pipeline</h5>
+          <ol class="mt-3">
+            <li><strong>Feature Extraction:</strong> DenseNet-121 CNN pre-trained on ImageNet and fine-tuned on chest X-ray dataset</li>
+            <li><strong>Classification:</strong> Support Vector Machine (SVM) with RBF kernel</li>
+            <li><strong>Severity Assessment:</strong> Calibrated SVM decision scores mapped to severity levels</li>
+          </ol>
+          
+          <h5 class="mt-4">Training Dataset</h5>
+          <ul>
+            <li>5,863 chest X-ray images (1,583 normal, 4,280 pneumonia)</li>
+            <li>Balanced with augmentation techniques</li>
+            <li>K-fold cross-validation (k=5)</li>
+          </ul>
+        </div>
+        
+        <div class="col-md-5">
+          <div class="card bg-light">
+            <div class="card-body">
+              <h6>Performance Metrics</h6>
+              <table class="table table-sm">
+                <thead>
+                  <tr>
+                    <th>Metric</th>
+                    <th>Score</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Accuracy</td>
+                    <td>{{ metrics.accuracy }}</td>
+                  </tr>
+                  <tr>
+                    <td>F1 Score</td>
+                    <td>{{ metrics.f1 }}</td>
+                  </tr>
+                  <tr>
+                    <td>Precision</td>
+                    <td>{{ metrics.precision }}</td>
+                  </tr>
+                  <tr>
+                    <td>Recall</td>
+                    <td>{{ metrics.recall }}</td>
+                  </tr>
+                  <tr>
+                    <td>AUC</td>
+                    <td>{{ metrics.auc }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

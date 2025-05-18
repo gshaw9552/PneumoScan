@@ -1,0 +1,24 @@
+2025-05-18 16:13:07,016 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-05-18 16:13:07,017 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-18 16:13:07,020 - werkzeug - INFO -  * Restarting with stat
+2025-05-18 16:13:07,359 - werkzeug - WARNING -  * Debugger is active!
+2025-05-18 16:13:07,364 - werkzeug - INFO -  * Debugger PIN: 511-132-227
+2025-05-18 16:13:11,473 - werkzeug - INFO - 127.0.0.1 - - [18/May/2025 16:13:11] "GET / HTTP/1.1" 200 -
+2025-05-18 16:13:11,574 - werkzeug - INFO - 127.0.0.1 - - [18/May/2025 16:13:11] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-05-18 16:13:11,578 - werkzeug - INFO - 127.0.0.1 - - [18/May/2025 16:13:11] "GET / HTTP/1.1" 200 -
+2025-05-18 16:13:11,671 - werkzeug - INFO - 127.0.0.1 - - [18/May/2025 16:13:11] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-05-18 16:13:14,491 - werkzeug - INFO - 127.0.0.1 - - [18/May/2025 16:13:14] "GET /dashboard HTTP/1.1" 200 -
+2025-05-18 16:13:14,534 - werkzeug - INFO - 127.0.0.1 - - [18/May/2025 16:13:14] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-05-18 16:13:14,543 - werkzeug - INFO - 127.0.0.1 - - [18/May/2025 16:13:14] "[36mGET /static/images/confusion_matrix.png HTTP/1.1[0m" 304 -
+2025-05-18 16:13:14,559 - werkzeug - INFO - 127.0.0.1 - - [18/May/2025 16:13:14] "[36mGET /static/images/roc_curve.png HTTP/1.1[0m" 304 -
+2025-05-18 16:13:14,568 - werkzeug - INFO - 127.0.0.1 - - [18/May/2025 16:13:14] "[36mGET /static/images/gradcam_normal.png HTTP/1.1[0m" 304 -
+2025-05-18 16:13:14,569 - werkzeug - INFO - 127.0.0.1 - - [18/May/2025 16:13:14] "[36mGET /static/images/gradcam_pneumonia.png HTTP/1.1[0m" 304 -
+2025-05-18 16:13:24,013 - werkzeug - INFO - 127.0.0.1 - - [18/May/2025 16:13:24] "GET / HTTP/1.1" 200 -
+2025-05-18 16:13:24,064 - werkzeug - INFO - 127.0.0.1 - - [18/May/2025 16:13:24] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-05-18 16:13:24,075 - werkzeug - INFO - 127.0.0.1 - - [18/May/2025 16:13:24] "GET / HTTP/1.1" 200 -
+2025-05-18 16:13:25,677 - werkzeug - INFO - 127.0.0.1 - - [18/May/2025 16:13:25] "GET /feedback HTTP/1.1" 200 -
+2025-05-18 16:13:25,733 - werkzeug - INFO - 127.0.0.1 - - [18/May/2025 16:13:25] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-05-18 16:14:55,033 - werkzeug - INFO -  * Detected change in 'D:\\Repo\\mini-project-app\\app.py', reloading
+2025-05-18 16:14:55,081 - werkzeug - INFO -  * Restarting with stat
+2025-05-18 16:26:52,406 - werkzeug - INFO -  * Restarting with stat

@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+    <div class="card shadow mb-4">
+      <div class="card-header bg-primary text-white">
+        <h2 class="h4 mb-0"><i class="bi bi-chat-dots me-2"></i>Share Your Feedback</h2>
+      </div>
+      <div class="card-body">
+        <p class="text-muted mb-4">Your feedback helps us improve PneumoScan. Please share your experience with our tool.</p>
+    {% if success %}
+      <div class="alert alert-success d-flex align-items-center">
+        <i class="bi bi-check-circle-fill me-2 fs-4"></i>
+        <div>Thank you for your feedback! Your insights help us improve our tool.</div>
+      </div>
+    {% endif %}
+    
+    {% if error %}
+      <div class="alert alert-danger d-flex align-items-center">
+        <i class="bi bi-exclamation-triangle-fill me-2 fs-4"></i>
+        <div>{{ error }}</div>
+      </div>
+    {% endif %}
+    
+    <form method="post">
+      <!-- Hidden field for prediction ID (if available from results page) -->
+      <input type="hidden" name="prediction_id" value="{{ prediction_id|default('') }}">
+      
+      <div class="mb-4">
+        <label class="form-label fw-bold">Was the prediction correct?</label>
+        <div class="mt-2">
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="is_correct" id="correct-yes" value="Yes" required>
+            <label class="form-check-label" for="correct-yes">Yes</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="is_correct" id="correct-no" value="No">
+            <label class="form-check-label" for="correct-no">No</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="is_correct" id="correct-unsure" value="Unsure">
+            <label class="form-check-label" for="correct-unsure">Unsure</label>
+          </div>
+        </div>
+      </div>
+      
+      <div class="mb-4">
+        <label for="correct_diagnosis" class="form-label fw-bold">If you know the correct diagnosis, please specify:</label>
+        <select id="correct_diagnosis" name="correct_diagnosis" class="form-select">
+          <option value="">Select diagnosis...</option>
+          <option value="Normal">Normal</option>
+          <option value="Mild Pneumonia">Mild Pneumonia</option>
+          <option value="Moderate Pneumonia">Moderate Pneumonia</option>
+          <option value="Severe Pneumonia">Severe Pneumonia</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+      
+      <div class="mb-4">
+        <label for="severity_accuracy" class="form-label fw-bold">How accurate was the severity assessment?</label>
+        <select id="severity_accuracy" name="severity_accuracy" class="form-select">
+          <option value="">Select accuracy...</option>
+          <option value="Very accurate">Very accurate</option>
+          <option value="Somewhat accurate">Somewhat accurate</option>
+          <option value="Not accurate">Not accurate</option>
+          <option value="Not applicable">Not applicable</option>
+        </select>
+      </div>
+      
+      <div class="mb-4">
+        <label for="rating" class="form-label fw-bold">Overall, how would you rate this tool?</label>
+        <div class="rating-container d-flex align-items-center">
+          <select id="rating" name="rating" class="form-select">
+            <option value="">Select rating...</option>
+            <option value="1">1 - Poor</option>
+            <option value="2">2 - Fair</option>
+            <option value="3">3 - Good</option>
+            <option value="4">4 - Very Good</option>
+            <option value="5">5 - Excellent</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="mb-4">
+        <label class="form-label fw-bold">Was PneumoScan useful for your needs?</label>
+        <div class="mt-2">
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="useful" id="useful-yes" value="Yes">
+            <label class="form-check-label" for="useful-yes">Yes</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="useful" id="useful-no" value="No">
+            <label class="form-check-label" for="useful-no">No</label>
+          </div>
+        </div>
+      </div>
+      
+      <div class="mb-4">
+        <label for="comments" class="form-label fw-bold">Additional Comments</label>
+        <textarea id="comments" name="comments" rows="4" class="form-control" placeholder="Please share your experience, suggestions, or concerns..."></textarea>
+      </div>
+      
+      <div class="mb-4">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="is_medical_professional" id="is-medical">
+          <label class="form-check-label" for="is-medical">
+            I am a healthcare professional
+          </label>
+        </div>
+      </div>
+      
+      <div class="d-grid">
+        <button type="submit" class="btn btn-primary btn-lg">
+          <i class="bi bi-send me-2"></i>Submit Feedback
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="card shadow">
+  <div class="card-header bg-info text-white">
+    <h2 class="h4 mb-0"><i class="bi bi-info-circle me-2"></i>Why Your Feedback Matters</h2>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-4 text-center mb-3 mb-md-0">
+        <div class="feature-icon">
+          <i class="bi bi-graph-up text-primary display-5"></i>
+        </div>
+        <h6 class="mt-2">Improve Accuracy</h6>
+        <p class="small text-muted">Your feedback helps us enhance our AI model</p>
+      </div>
+      <div class="col-md-4 text-center mb-3 mb-md-0">
+        <div class="feature-icon">
+          <i class="bi bi-person-check text-primary display-5"></i>
+        </div>
+        <h6 class="mt-2">User Experience</h6>
+        <p class="small text-muted">We continuously refine our interface</p>
+      </div>
+      <div class="col-md-4 text-center">
+        <div class="feature-icon">
+          <i class="bi bi-lightbulb text-primary display-5"></i>
+        </div>
+        <h6 class="mt-2">New Features</h6>
+        <p class="small text-muted">Suggest improvements we haven't thought of</p>
+      </div>
+    </div>
+  </div>
+</div>
+  </div>
+</div>
+{% endblock %}
